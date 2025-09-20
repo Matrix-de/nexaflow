@@ -40,31 +40,39 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          // المكتبات الأساسية
+          // المكتبات الأساسية للتحميل الفوري
           'react-vendor': ['react', 'react-dom'],
           
-          // مكتبات الرسوم المتحركة - منفصلة للتحميل عند الحاجة
-          'animations': ['framer-motion', 'gsap', 'lenis'],
-          
-          // مكتبات UI - محافظة على كل المكونات
-          'ui-components': [
+          // مكتبات UI أساسية
+          'ui-core': [
             '@radix-ui/react-slot', 
             '@radix-ui/react-tooltip',
-            '@radix-ui/react-checkbox',
-            '@radix-ui/react-select',
             'lucide-react'
           ],
           
-          // مكتبات 3D - منفصلة لتحسين الأداء
-          'threejs': ['three', '@react-three/fiber', '@react-three/drei'],
+          // مكتبات الرسوم المتحركة الأساسية
+          'animations-core': ['framer-motion'],
           
-          // مكتبات البيانات والرسوم البيانية
+          // مكتبات ثقيلة - lazy load
+          'animations-heavy': ['gsap', 'lenis'],
+          'ui-heavy': [
+            '@radix-ui/react-checkbox',
+            '@radix-ui/react-select',
+          ],
+          
+          // مكتبات 3D - lazy load فقط
+          'threejs-core': ['three'],
+          'threejs-extended': ['@react-three/fiber', '@react-three/drei'],
+          
+          // مكتبات البيانات والرسوم البيانية - lazy load
           'charts': ['recharts', '@number-flow/react'],
           
-          // Spline والتأثيرات المتقدمة
-          'advanced-effects': [
+          // Spline والتأثيرات الثقيلة - lazy load
+          'spline-effects': [
             '@splinetool/react-spline', 
-            '@splinetool/runtime',
+            '@splinetool/runtime'
+          ],
+          'particles': [
             '@tsparticles/react',
             '@tsparticles/slim'
           ],

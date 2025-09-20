@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from 'react';
 import { GooeyText } from './gooey-text-morphing';
-import { Typewriter } from './typewriter';
 
 // Types for component props
 interface HeroProps {
@@ -443,29 +442,10 @@ const Hero: React.FC<HeroProps> = ({
             </div>
           </div>
           
-          {/* Subtitle with Typewriter Animation */}
+          {/* Subtitle with Fixed Text */}
           <div className="max-w-3xl mx-auto animate-fade-in-up animation-delay-600">
             <p className="text-lg md:text-xl lg:text-2xl text-orange-100/90 font-light leading-relaxed">
-              Supercharge productivity with{" "}
-              <Typewriter
-                text={[
-                  "intelligent workflows and next-gen solutions",
-                  "AI-powered automation and integrations", 
-                  "seamless integrations and smart workflows",
-                  "limitless possibilities and AI innovation",
-                  "cutting-edge automation and advanced AI"
-                ]}
-                speed={70}
-                loop={true}
-                className="text-orange-200 font-medium"
-                cursorChar="_"
-                cursorClassName="text-orange-300 ml-1"
-                initialDelay={2000}
-                showCursor={true}
-                waitTime={1500}
-                deleteSpeed={40}
-              />
-              {" "}built for the next generation of teams — fast, seamless, and limitless.
+              Supercharge productivity with <span className="text-orange-200 font-medium">intelligent workflows and next-gen solutions</span> built for the next generation of teams — fast, seamless, and limitless.
             </p>
           </div>
           
