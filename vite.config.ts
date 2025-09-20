@@ -22,6 +22,12 @@ export default defineConfig({
   },
   optimizeDeps: {
     exclude: ['lucide-react'],
+    include: [
+      'react',
+      'react-dom',
+      'framer-motion',
+      '@radix-ui/react-slot',
+    ],
   },
   build: {
     // تحسينات الأداء للإنتاج
@@ -30,23 +36,56 @@ export default defineConfig({
     cssMinify: true,
     sourcemap: false,
     
-    // تقسيم الكود لتحميل أسرع
+    // تقسيم الكود لتحميل أسرع - محافظ على كل المكونات
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom'],
-          animations: ['framer-motion', 'gsap'],
-          ui: ['@radix-ui/react-slot', '@radix-ui/react-tooltip'],
-          three: ['three', '@react-three/fiber', '@react-three/drei'],
+          // المكتبات الأساسية
+          'react-vendor': ['react', 'react-dom'],
+          
+          // مكتبات الرسوم المتحركة - منفصلة للتحميل عند الحاجة
+          'animations': ['framer-motion', 'gsap', 'lenis'],
+          
+          // مكتبات UI - محافظة على كل المكونات
+          'ui-components': [
+            '@radix-ui/react-slot', 
+            '@radix-ui/react-tooltip',
+            '@radix-ui/react-checkbox',
+            '@radix-ui/react-select',
+            'lucide-react'
+          ],
+          
+          // مكتبات 3D - منفصلة لتحسين الأداء
+          'threejs': ['three', '@react-three/fiber', '@react-three/drei'],
+          
+          // مكتبات البيانات والرسوم البيانية
+          'charts': ['recharts', '@number-flow/react'],
+          
+          // Spline والتأثيرات المتقدمة
+          'advanced-effects': [
+            '@splinetool/react-spline', 
+            '@splinetool/runtime',
+            '@tsparticles/react',
+            '@tsparticles/slim'
+          ],
         },
       },
     },
     
-    // ضغط الملفات
-    chunkSizeWarningLimit: 1000,
+    // رفع حد التحذير لأن لدينا مكتبات كبيرة ضرورية
+    chunkSizeWarningLimit: 2000,
     
-    // تحسين الصور
+    // تحسين الصور بدون حذفها
     assetsInlineLimit: 4096,
+    
+    // إعدادات ضغط محسنة
+    terserOptions: {
+      compress: {
+        drop_console: true, // إزالة console.log في الإنتاج فقط
+        drop_debugger: true,
+        pure_funcs: ['console.log'], // الحفاظ على console.error و console.warn
+      },
+    },
   },
   
   // تحسين التطوير

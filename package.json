@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "NODE_ENV=production vite build",
+    "build:fast": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
     "build:analyze": "vite build --mode analyze",
@@ -13,7 +14,8 @@
     "deploy:railway": "railway up",
     "deploy:surge": "npm run build && surge dist",
     "deploy:firebase": "npm run build && firebase deploy",
-    "optimize": "npm run build && npx vite-bundle-analyzer dist/stats.html"
+    "optimize": "npm run build && npx vite-bundle-analyzer dist/stats.html",
+    "build:production": "NODE_ENV=production npm run build"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -58,6 +60,7 @@
     "@types/three": "^0.180.0",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.18",
+    "cssnano": "^7.1.1",
     "eslint": "^9.9.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.11",
